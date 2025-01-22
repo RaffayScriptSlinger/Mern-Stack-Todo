@@ -1,7 +1,9 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const port = 5002;
+app.use(cors({ origin: ["http://localhost:5173"] }));
 const Todos = [];
 app.use(express.json())
 
@@ -31,3 +33,15 @@ app.post(`/api/v1/Todos`,(req,res)=>{
     // Todos.push(req.body.todo)
     // res.send("Todo Added Successfully")
 })
+// app.delete(`/api/v1/Todos:id`,(req,res)=>{
+//   const id = parseInt( req.params.id)
+
+//   const TodoIndex = Todos.findIndex((todo)=> todo.id === id)
+//   if(TodoIndex !== -1){
+//     Todos.splice(TodoIndex,1)
+//     return res.status(404).send({ message: "Todo not found" });
+//   }
+
+
+ 
+// })
