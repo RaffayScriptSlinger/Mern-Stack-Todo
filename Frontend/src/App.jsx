@@ -29,6 +29,7 @@ function App() {
     getTodo();
   };
 
+
   return (
     <div className="bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md bg-gray-900 p-6 rounded-lg shadow-lg">

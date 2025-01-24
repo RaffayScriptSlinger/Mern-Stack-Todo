@@ -33,6 +33,16 @@ app.post(`/api/v1/Todos`,(req,res)=>{
     // Todos.push(req.body.todo)
     // res.send("Todo Added Successfully")
 })
+app.patch(`/api/v1/Todo:id`,(req,res)=>{
+  const id = req.params.id;
+  for( let i = 0 ; i < Todos.length ; i++){
+    if(Todos[i] === id){
+      Todos[i].todoContent =  req.body.todoContent
+    }
+
+  }
+
+})
 // app.delete(`/api/v1/Todos:id`,(req,res)=>{
 //   const id = parseInt( req.params.id)
 
