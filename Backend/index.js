@@ -4,10 +4,11 @@ import cors from "cors";
 const app = express();
 const port = 5002;
 app.use(cors());
+app.use(express.json());
 
 
 const Todos = [];
-app.use(express.json());
+
 
 app.listen(port, () => {
   console.log(`server is serving at ${port}`);

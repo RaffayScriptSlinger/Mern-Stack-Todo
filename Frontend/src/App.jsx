@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const BASE_URL = "mern-stack-todo-tjmy.vercel.app";
+  const BASE_URL = "https://mern-stack-todo-ivory.vercel.app";
 
   const getTodo = async () => {
     const res = await axios(`${BASE_URL}/api/v1/Todos`);
@@ -49,7 +49,6 @@ function App() {
       const { data } = await axios.delete(`${BASE_URL}/api/v1/Todos/${todoId}`);
       getTodo();
       toast.success("Todo Deleted");
-    
     } catch (err) {
       console.log(err);
     }
@@ -82,7 +81,6 @@ function App() {
                 <form
                   onSubmit={(event) => {
                     editTodo(event, todo.id);
-                   
                   }}
                 >
                   <input
@@ -90,12 +88,16 @@ function App() {
                     className="text-black"
                     defaultValue={todo.todoContent}
                   />
-              
-                  <button type="submit" className="px-3 py-1 text-sm bg-green-500 text-white rounded-md hover:bg-gray-800 transition">Save</button>
+
+                  <button
+                    type="submit"
+                    className="px-3 py-1 text-sm bg-green-500 text-white rounded-md hover:bg-gray-800 transition"
+                  >
+                    Save
+                  </button>
                   <button className="px-3 py-1 text-sm bg-gray-700 text-white rounded-md hover:bg-gray-800 transition">
                     cancel
                   </button>
-                  
                 </form>
               ) : (
                 <span className="text-white ">{todo?.todoContent}</span>
