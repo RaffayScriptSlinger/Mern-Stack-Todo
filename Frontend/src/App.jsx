@@ -1,13 +1,12 @@
 import "./App.css";
 import axios from "axios";
-import { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const BASE_URL = "http://localhost:5002";
+  const BASE_URL = "mern-stack-todo-tjmy.vercel.app";
 
   const getTodo = async () => {
     const res = await axios(`${BASE_URL}/api/v1/Todos`);

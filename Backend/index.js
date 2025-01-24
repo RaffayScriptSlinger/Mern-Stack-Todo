@@ -3,7 +3,14 @@ import cors from "cors";
 
 const app = express();
 const port = 5002;
-app.use(cors({ origin: ["http://localhost:5173"] }));
+app.use(cors({
+  origin: [
+    "http://localhost:5173", 
+    "https://mern-stack-todo-ivory.vercel.app" 
+  ]
+}));
+
+
 const Todos = [];
 app.use(express.json());
 
