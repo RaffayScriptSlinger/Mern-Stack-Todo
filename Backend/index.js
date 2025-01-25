@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import "./database.js"
+import { todoModel } from "./models/server.js";
 
 const app = express();
 const port = 5002;
@@ -30,9 +32,12 @@ app.get(`/api/v1/Todos`, (req, res) => {
 app.post(`/api/v1/Todos`, (req, res) => {
   const obj = {
     todoContent: req.body.todo,
-    id: new Date().getTime(),
+    // id: new Date().getTime(),
+    ip : req.ip
   };
-  Todos.push(obj);
+  const result =  todoModel.create(obj)
+  console.log(result)
+  // Todos.push(obj);
   res.send({ message: "Todo Added Successfully", data: obj });
 });
 
