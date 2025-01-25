@@ -76,7 +76,7 @@ function App() {
         </form>
         Todo List Section
         {todos.map((todo, index) => (
-          <div className="space-y-4 p-2" key={todo.id}>
+          <div className="space-y-4 p-2" key={todo._id}>
             <div className="flex items-center justify-between bg-gray-800 p-4 rounded-md shadow-md ">
               {todo.isEditable ? (
                 <form
