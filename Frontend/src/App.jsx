@@ -6,7 +6,8 @@ import toast from "react-hot-toast";
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const BASE_URL = "https://mern-stack-todo-ivory.vercel.app";
+  const BASE_URL = "https://mern-stack-todo-tjmy.vercel.app";
+
 
   const getTodo = async () => {
     const res = await axios(`${BASE_URL}/api/v1/Todos`);
