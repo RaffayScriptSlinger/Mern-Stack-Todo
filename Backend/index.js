@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import "./database.js"
+import "./database.js";
 import { todoModel } from "./models/server.js";
 
 const app = express();
@@ -8,9 +8,7 @@ const port = 5002;
 app.use(cors());
 app.use(express.json());
 
-
 const Todos = [];
-
 
 app.listen(port, () => {
   console.log(`server is serving at ${port}`);
@@ -20,7 +18,8 @@ app.get(`/`, (req, res) => {
   res.send("Hello This is a  Port");
 });
 
-app.get(`/api/v1/Todos`, (req, res) => {
+app.get(`/api/v1/Todos`, async (req, res) => {
+  const Todos = await todoModel.find();
   const message =
     Todos.length > 0 ? "Todos are available" : "No Todos available";
   res.send({
@@ -29,59 +28,49 @@ app.get(`/api/v1/Todos`, (req, res) => {
   });
 });
 
-app.post(`/api/v1/Todos`, (req, res) => {
+app.post(`/api/v1/Todos`, async (req, res) => {
   const obj = {
     todoContent: req.body.todo,
-    // id: new Date().getTime(),
-    ip : req.ip
+    ip: req.ip,
   };
-  const result =  todoModel.create(obj)
-  console.log(result)
+  const result = await todoModel.create(obj);
+
   // Todos.push(obj);
-  res.send({ message: "Todo Added Successfully", data: obj });
+  res.send({ message: "Todo Added Successfully", data: result });
 });
 
-app.patch(`/api/v1/Todos/:id`, (req, res) => {
-  const id = parseInt(req.params.id);
-  let isFound = false;
-  for (let i = 0; i < Todos.length; i++) {
-    if (Todos[i].id === id) {
-      Todos[i].todoContent = req.body.todoContent;
-      isFound = true;
-      break;
-    }
-  }
-  if (isFound) {
-    res.status(201).send({ data:{
-      id : id,
-      todoContent : req.body.todoContent
-
-    },
-     message: "Todo Updated Successfully"});
+app.patch(`/api/v1/Todos/:id`, async (req, res) => {
+  const id = req.params.id;
+  const result = await todoModel.findByIdAndUpdate(id, {
+    todoContent: req.body.todoContent,
+  });
+  console.log(result)
+  // let isFound = false;
+  if (result) {
+    res.status(201).send({
+      data: {
+        id: id,
+        todoContent: req.body.todoContent,
+      },
+      message: "Todo Updated Successfully",
+    });
   } else {
     res.status(200).send({
-      message:"Todo not Found",
-      data : {
-        todoContent : null,
-        id : null
-      }
+      message: "Todo not Found",
+      data: {
+        todoContent: null,
+        id: null,
+      },
     });
   }
 });
 
-app.delete("/api/v1/Todos/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  let isDeleted = false
-  for (let i = 0; i < Todos.length; i++) {
-    if (Todos[i].id === id) {
-      Todos.splice(i,1)
-      isDeleted = true
-      break
-    }    
-  }
-  if(isDeleted){
+app.delete("/api/v1/Todos/:id", async(req, res) => {
+  const id = req.params.id
+  const result = await todoModel.findByIdAndDelete(id)
+  if (result) {
     res.status(200).send("Todo Deleted Successfully");
-  }else{
-    res.status(200).send("Todo Not Found")
+  } else {
+    res.status(200).send("Todo Not Found");
   }
 });

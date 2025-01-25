@@ -1,12 +1,12 @@
-import { models, Schema} from "mongoose"
+import mongoose, {  Schema} from "mongoose"
 
 const todoSchema = new Schema(
     {
-        todoContent : {type : String , require :true},
+        todoContent : {type : String , required :true},
         ip : {type : String}
 
     },
     {timestamps : true}
 )
 
-export const todoModel = models("todoModel" , todoSchema)
+export const todoModel = mongoose.model("todoModel" , todoSchema)
